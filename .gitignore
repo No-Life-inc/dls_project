@@ -297,3 +297,10 @@ pyrightconfig.json
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,intellij,python,java
+.idea
+dls_backend
+dls_dbChanges
+dls_dbUserChanges
+dls_frontend
+dls_frontend_backend
+dls_frontend_write_rest_api

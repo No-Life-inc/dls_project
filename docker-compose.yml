@@ -1,0 +1,37 @@
+
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGOUSER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGOPW}
+      MONGO_INITDB_DATABASE: ${MONGODB}
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./create-db.sql:/create-db.sql
+      - ./entrypoint.sh:/entrypoint.sh
+    command:
+      - /bin/bash
+      - /entrypoint.sh
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: my-rabbit
+    container_name: some-rabbit
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITUSER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITPW}
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: unless-stopped

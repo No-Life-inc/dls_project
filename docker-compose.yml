@@ -13,6 +13,7 @@ services:
       - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js
   db:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
     ports:
       - "1433:1433"
     environment:
@@ -35,3 +36,19 @@ services:
       - "15672:15672"
       - "5672:5672"
     restart: unless-stopped
+  dls_backend:
+    build:
+      context: ./dls_backend/DLS_Backend
+    ports:
+      - "5012:5012"
+    environment:
+      - ASPNETCORE_URLS=http://+:5012
+      - ASPNETCORE_ENVIRONMENT=Development
+      - JWT_SECRET=${JWT_SECRET}
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER}
+      - DB_BACKEND=${DB_BACKEND}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}

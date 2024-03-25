@@ -52,3 +52,30 @@ services:
       - DB_BACKEND=${DB_BACKEND}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+  db_changes:
+    build:
+      context: ./dls_dbChanges
+    ports:
+      - "5000:5000"  # Map the host port to the container port
+    environment:
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+      - MONGOUSER=${MONGOUSER}
+      - MONGOPW=${MONGOPW}
+      - MONGOURL=${MONGOURL}
+      - MONGODB=${MONGODB}
+  db_user_changes:
+    build:
+      context: ./dls_dbUserChanges
+    ports:
+      - "5001:5001"  # Map the host port to the container port
+    environment:
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER}
+      - DB_FRONTEND=${DB_FRONTEND}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+

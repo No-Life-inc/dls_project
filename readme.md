@@ -1,4 +1,4 @@
-# REPO TEMPLATE
+# DLS Project
 
 ## Contributors
 

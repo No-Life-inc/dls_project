@@ -1,8 +1,25 @@
 
 version: '3'
 services:
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./dls_frontend_backend/initialization/sql/create-db.sql:/create-db.sql
+      - ./dls_frontend_backend/initialization/sql/entrypoint.sh:/entrypoint.sh
+    command:
+      - /bin/bash
+      - /entrypoint.sh
+
   mongo:
     image: mongo:latest
+    container_name: mongo
     ports:
       - "27017:27017"
     environment:
@@ -10,24 +27,15 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGOPW}
       MONGO_INITDB_DATABASE: ${MONGODB}
     volumes:
-      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js
-  db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    ports:
-      - "1433:1433"
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - ./create-db.sql:/create-db.sql
-      - ./entrypoint.sh:/entrypoint.sh
-    command:
-      - /bin/bash
-      - /entrypoint.sh
+      - ./dls_frontend_backend/initialization/init-db.js:/docker-entrypoint-initdb.d/init-db.js
+
   rabbitmq:
+    depends_on:
+      - db
+      - mongo
     image: rabbitmq:3-management
     hostname: my-rabbit
-    container_name: some-rabbit
+    container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITUSER}
       RABBITMQ_DEFAULT_PASS: ${RABBITPW}
@@ -35,3 +43,104 @@ services:
       - "15672:15672"
       - "5672:5672"
     restart: unless-stopped
+
+  dls_backend:
+    build:
+      context: ./dls_backend/DLS_Backend
+    depends_on:
+      - db
+    container_name: backend
+    ports:
+      - "5012:5012"
+    environment:
+      - ASPNETCORE_URLS=http://+:5012
+      - ASPNETCORE_ENVIRONMENT=Development
+      - JWT_SECRET=${JWT_SECRET}
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER}
+      - DB_BACKEND=${DB_BACKEND}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - FRONTENDURL=${FRONTENDURL}
+
+  db_changes:
+    build:
+      context: ./dls_dbChanges
+    depends_on:
+      - mongo
+      - rabbitmq
+    container_name: db_changes
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+      - MONGOUSER=${MONGOUSER}
+      - MONGOPW=${MONGOPW}
+      - MONGOURL=${MONGOURL}
+      - MONGODB=${MONGODB}
+
+  db_user_changes:
+    build:
+      context: ./dls_dbUserChanges
+    depends_on:
+      - db
+      - rabbitmq
+    container_name: db_user_changes
+    ports:
+      - "5001:5001"
+    restart: unless-stopped
+    environment:
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER}
+      - DB_FRONTEND=${DB_FRONTEND}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+  dls_frontend:
+    build:
+      context: ./dls_frontend
+    container_name: frontend
+    ports:
+      - "3001:3001"
+    environment:
+      - FRONTEND_PORT=8080
+      - GRAPHQLURL=${GRAPHQLURL}
+      - WRITEAPIURL=${WRITEAPIURL}
+
+  graphql_api:
+    build:
+      context: ./dls_frontend_backend
+    container_name: graphql
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=${FRONTEND_BACKEND_PORT}
+      - MONGOUSER=${MONGOUSER}
+      - MONGOPW=${MONGOPW}
+      - MONGOURL=${MONGOURL}
+
+  write_api:
+    build: ./dls_frontend_write_rest_api
+    ports:
+      - "3000:3000"
+    container_name: write_api
+    depends_on:
+      - rabbitmq
+    environment:
+      - PORT=${FRONTEND_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER_NAME}
+      - DB_FRONTEND=${DB_FRONTEND}
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+
+

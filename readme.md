@@ -12,14 +12,14 @@
 This is created to build the full project in a docker environment <br>
 The full struckture of the project should look like this:<br>
 - dls_project
--   dls_backend
--   dls_dbChanges
--   dls_dbUserChanges
--   dls_frontend
--   dls_frontend_backend
--   dls_frontend_write_rest_api
--   .env
--   docker-compose.yml
+  - dls_backend
+  - dls_dbChanges
+  - dls_dbUserChanges
+  - dls_frontend
+  - dls_frontend_backend
+  - dls_frontend_write_rest_api
+  - .env
+  - docker-compose.yml
 
 
 ## Environment Variables

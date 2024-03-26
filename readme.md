@@ -9,9 +9,18 @@
 
 ## General Use
 
-What are the main use cases for the project? <br>
-How is the code located in the repository used? <br>
-- PLACEHOLDER: VALUE.
+This is created to build the full project in a docker environment <br>
+The full struckture of the project should look like this:<br>
+- dls_project
+-   dls_backend
+-   dls_dbChanges
+-   dls_dbUserChanges
+-   dls_frontend
+-   dls_frontend_backend
+-   dls_frontend_write_rest_api
+-   .env
+-   docker-compose.yml
+
 
 ## Environment Variables
 
@@ -50,20 +59,14 @@ JWT_SECRET='2b13d563f605b3bb6b5f43ec95a2aaeef1d780049d91d62e0d7c04d70d46de44'
 - WRITEAPIURL=http://localhost:3000
 - FRONTENDURL=http://localhost:3001
 
-
-
-
-
 ## How To Run
 
 Make sure the environment variables are set.<br>
-More Steps.<br>
+Setup all the Repositories for this project and update them to the the development branch.<br>
+Be in the root of the project with your terminal
 Lastly, use the following command:
 
 ```bash
-run PLACEHOLDER
+docker-compose up --build
 ```
 
-## Dependencies
-
-What dependencies are used and why.

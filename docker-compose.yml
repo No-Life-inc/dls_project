@@ -130,6 +130,7 @@ services:
     build: ./dls_frontend_write_rest_api
     ports:
       - "3000:3000"
+    container_name: write_api
     depends_on:
       - rabbitmq
     environment:

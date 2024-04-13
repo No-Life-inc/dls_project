@@ -84,6 +84,20 @@ services:
       - MONGOURL=${MONGOURL}
       - MONGODB=${MONGODB}
 
+  emailer:
+    build:
+      context: ./dls_emailer
+    depends_on:
+      - rabbitmq
+    container_name: emailer
+    restart: unless-stopped
+    ports:
+      - "5050:5050"
+    environment:
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+
   db_user_changes:
     build:
       context: ./dls_dbUserChanges

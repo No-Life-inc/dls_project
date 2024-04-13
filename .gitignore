@@ -304,4 +304,5 @@ dls_dbUserChanges
 dls_frontend
 dls_frontend_backend
 dls_frontend_write_rest_api
+dls_emailer
 app

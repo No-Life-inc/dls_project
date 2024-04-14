@@ -30,9 +30,6 @@ services:
       - ./dls_frontend_backend/initialization/init-db.js:/docker-entrypoint-initdb.d/init-db.js
 
   rabbitmq:
-    depends_on:
-      - db
-      - mongo
     image: rabbitmq:3-management
     hostname: my-rabbit
     container_name: rabbitmq

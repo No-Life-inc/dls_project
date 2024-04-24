@@ -119,11 +119,12 @@ services:
       context: ./dls_frontend
     container_name: frontend
     ports:
-      - "3001:3001"
+      - "8080:8080"
     environment:
-      - FRONTEND_PORT=8080
-      - GRAPHQLURL=${GRAPHQLURL}
-      - WRITEAPIURL=${WRITEAPIURL}
+      - PORT=8080
+      - REACT_APP_GRAPHQLURL=${GRAPHQLURL}
+      - REACT_APP_WRITEAPIURL=${WRITEAPIURL}
+      - REACT_APP_AUTHURL=${AUTHURL}
 
   graphql_api:
     build:
@@ -136,6 +137,7 @@ services:
       - MONGOUSER=${MONGOUSER}
       - MONGOPW=${MONGOPW}
       - MONGOURL=${MONGOURL}
+      - JWT_SECRET=${JWT_SECRET}
 
   write_api:
     build: ./dls_frontend_write_rest_api

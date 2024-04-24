@@ -50,14 +50,14 @@ JWT_SECRET='2b13d563f605b3bb6b5f43ec95a2aaeef1d780049d91d62e0d7c04d70d46de44'
 - MONGODB='frontend_backend_db'
 
 #Port specification
-- FRONTEND_PORT=3001 #PORT
+- FRONTEND_PORT=8080 #PORT
 - FRONTEND_BACKEND_PORT=4000 #PORT
 - FRONTEND_WRITE_REST_PORT=3000 #PORT
 
 #GraqhQL and WriteAPI
 - GRAPHQLURL=http://localhost:4000/graphql
 - WRITEAPIURL=http://localhost:3000
-- FRONTENDURL=http://localhost:3001
+- FRONTENDURL=http://localhost:8080
 
 ## How To Run
 

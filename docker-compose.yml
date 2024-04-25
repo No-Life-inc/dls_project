@@ -116,6 +116,10 @@ services:
 
   dls_frontend:
     build:
+      args:
+        - REACT_APP_GRAPHQLURL=${GRAPHQLURL}
+        - REACT_APP_WRITEAPIURL=${WRITEAPIURL}
+        - REACT_APP_AUTHURL=${AUTHURL}
       context: ./dls_frontend
     container_name: frontend
     ports:

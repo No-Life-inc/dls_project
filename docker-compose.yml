@@ -2,9 +2,9 @@
 version: '3'
 services:
 
-  db:
+  write_db:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: mssql
+    container_name: write_db
     ports:
       - "1433:1433"
     environment:
@@ -16,6 +16,15 @@ services:
     command:
       - /bin/bash
       - /entrypoint.sh
+
+  auth_db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: auth_db
+    ports:
+      - "1434:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${DB_PASSWORD}
 
   mongo:
     image: mongo:latest
@@ -45,7 +54,7 @@ services:
     build:
       context: ./dls_backend/DLS_Backend
     depends_on:
-      - db
+      - auth_db
     container_name: backend
     ports:
       - "5012:5012"
@@ -56,7 +65,7 @@ services:
       - RABBITUSER=${RABBITUSER}
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
-      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER}
+      - DB_SERVER=${AUTH_DB_INTERNAL_DOCKER_SERVER}
       - DB_BACKEND=${DB_BACKEND}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
@@ -99,7 +108,7 @@ services:
     build:
       context: ./dls_dbUserChanges
     depends_on:
-      - db
+      - write_db
       - rabbitmq
     container_name: db_user_changes
     ports:
@@ -109,7 +118,7 @@ services:
       - RABBITUSER=${RABBITUSER}
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
-      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER}
+      - DB_SERVER=${WRITE_DB_INTERNAL_DOCKER_SERVER}
       - DB_FRONTEND=${DB_FRONTEND}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
@@ -154,7 +163,7 @@ services:
       - PORT=${FRONTEND_PORT}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
-      - DB_SERVER=${DB_INTERNAL_DOCKER_SERVER_NAME}
+      - DB_SERVER=${WRITE_DB_INTERNAL_DOCKER_SERVER}
       - DB_FRONTEND=${DB_FRONTEND}
       - RABBITUSER=${RABBITUSER}
       - RABBITPW=${RABBITPW}

@@ -27,37 +27,43 @@ The full struckture of the project should look like this:<br>
 Create a .env in the root folder.
 
 #JWT
-JWT_SECRET='2b13d563f605b3bb6b5f43ec95a2aaeef1d780049d91d62e0d7c04d70d46de44'
+JWT_SECRET='MmIxM2Q1NjNmNjA1YjNiYjZiNWY0M2VjOTVhMmFhZWVmMWQ3ODAwNDlkOTFkNjJlMGQ3YzA0ZDcwZDQ2ZGU0NA=='
 
 #RabbitMQ
-- RABBITUSER='user'
-- RABBITPW='password'
-- RABBITURL='rabbitmq'
+RABBITUSER='user'
+RABBITPW='password'
+RABBITURL='rabbitmq'
 
-#MSSQL Frontend and Backend
-- DB_SERVER='localhost,1433'
-- DB_INTERNAL_DOCKER_SERVER='mssql,1433'
-- DB_INTERNAL_DOCKER_SERVER_NAME='mssql'
-- DB_USER='SA'
-- DB_PASSWORD='YourStrongPassword123'
-- DB_BACKEND='usersDb'
-- DB_FRONTEND='mssqlWrite'
+
+#MSSQL Write Database Frontend
+WRITE_DB_SERVER='localhost,1433'
+WRITE_DB_INTERNAL_DOCKER_SERVER='write_db,1433'
+DB_INTERNAL_DOCKER_SERVER_NAME='mssql'
+DB_USER='SA'
+DB_PASSWORD='YourStrongPassword123'
+DB_FRONTEND='mssqlWrite'
+
+#MSSQL Auth Backend
+AUTH_DB_SERVER='localhost,1434'
+AUTH_DB_INTERNAL_DOCKER_SERVER='auth_db,1433'
+DB_BACKEND='usersDb'
 
 #MongoDB
-- MONGOUSER='admin'
-- MONGOPW='Passw0rd!'
-- MONGOURL='@mongo:27017/admin'
-- MONGODB='frontend_backend_db'
+MONGOUSER='admin'
+MONGOPW='Passw0rd!'
+MONGOURL='@mongo:27017/admin'
+MONGODB='frontend_backend_db'
 
 #Port specification
-- FRONTEND_PORT=8080 #PORT
-- FRONTEND_BACKEND_PORT=4000 #PORT
-- FRONTEND_WRITE_REST_PORT=3000 #PORT
+FRONTEND_PORT=8080
+FRONTEND_BACKEND_PORT=4000
+FRONTEND_WRITE_REST_PORT=3000
 
-#GraqhQL and WriteAPI
-- GRAPHQLURL=http://localhost:4000/graphql
-- WRITEAPIURL=http://localhost:3000
-- FRONTENDURL=http://localhost:8080
+#URL's
+GRAPHQLURL=http://localhost:4000/graphql
+WRITEAPIURL=http://localhost:3000/v1
+FRONTENDURL=http://localhost:8080
+AUTHURL=http://localhost:5012/v1
 
 ## How To Run
 

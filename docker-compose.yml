@@ -147,6 +147,7 @@ services:
       - REACT_APP_GRAPHQLURL=${GRAPHQLURL}
       - REACT_APP_WRITEAPIURL=${WRITEAPIURL}
       - REACT_APP_AUTHURL=${AUTHURL}
+      - REACT_APP_CDNURL=${CDNURL}
 
   graphql_api:
     build:

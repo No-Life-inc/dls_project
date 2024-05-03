@@ -1,6 +1,15 @@
 
 version: '3'
 services:
+  nginx:
+    build: 
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "9000:80"
+    volumes:
+      - nginx-data:/usr/share/nginx/html
+
 
   write_db:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -169,4 +178,5 @@ services:
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
 
-
+volumes:
+  nginx-data:

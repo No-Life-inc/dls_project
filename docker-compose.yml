@@ -160,7 +160,7 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      - PORT=${FRONTEND_PORT}
+      - PORT=${FRONTEND_WRITE_REST_PORT}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_SERVER=${WRITE_DB_INTERNAL_DOCKER_SERVER}
@@ -168,5 +168,3 @@ services:
       - RABBITUSER=${RABBITUSER}
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
-
-

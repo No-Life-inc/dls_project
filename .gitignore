@@ -305,4 +305,7 @@ dls_frontend
 dls_frontend_backend
 dls_frontend_write_rest_api
 dls_emailer
+dls_auth_api
+dls_graphql
+dls_write_rest_api
 app

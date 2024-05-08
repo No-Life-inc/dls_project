@@ -59,9 +59,9 @@ services:
       - "5672:5672"
     restart: unless-stopped
 
-  dls_backend:
+  auth_backend:
     build:
-      context: ./dls_backend/DLS_Backend
+      context: ./dls_auth_api/DLS_Backend
     depends_on:
       - auth_db
     container_name: backend
@@ -151,7 +151,7 @@ services:
 
   graphql_api:
     build:
-      context: ./dls_frontend_backend
+      context: ./dls_graphql
     container_name: graphql
     ports:
       - "4000:4000"
@@ -163,7 +163,7 @@ services:
       - JWT_SECRET=${JWT_SECRET}
 
   write_api:
-    build: ./dls_frontend_write_rest_api
+    build: ./dls_write_api
     ports:
       - "3000:3000"
     container_name: write_api

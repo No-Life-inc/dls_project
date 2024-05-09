@@ -20,8 +20,8 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./dls_frontend_backend/initialization/sql/create-db.sql:/create-db.sql
-      - ./dls_frontend_backend/initialization/sql/entrypoint.sh:/entrypoint.sh
+      - ./dls_graphql/initialization/sql/create-db.sql:/create-db.sql
+      - ./dls_graphql/initialization/sql/entrypoint.sh:/entrypoint.sh
     command:
       - /bin/bash
       - /entrypoint.sh
@@ -178,6 +178,7 @@ services:
       - RABBITUSER=${RABBITUSER}
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
+      - WRITE_DB_SERVER_PORT=${WRITE_DB_SERVER_PORT}
 
 volumes:
   nginx-data:

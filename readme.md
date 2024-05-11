@@ -66,6 +66,7 @@ WRITEAPIURL=http://localhost:3000/v1
 FRONTENDURL=http://localhost:8080
 AUTHURL=http://localhost:5012/v1
 
+
 ## How To Run
 
 Make sure the environment variables are set.<br>

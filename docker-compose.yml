@@ -179,6 +179,7 @@ services:
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
       - WRITE_DB_SERVER_PORT=${WRITE_DB_SERVER_PORT}
+      - CORS_ORIGIN=${FRONTENDURL}
 
 volumes:
   nginx-data:

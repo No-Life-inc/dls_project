@@ -45,7 +45,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGOPW}
       MONGO_INITDB_DATABASE: ${MONGODB}
     volumes:
-      - ./dls_frontend_backend/initialization/init-db.js:/docker-entrypoint-initdb.d/init-db.js
+      - ./dls_graphql/initialization/init-db.js:/docker-entrypoint-initdb.d/init-db.js
 
   rabbitmq:
     image: rabbitmq:3-management

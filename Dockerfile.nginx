@@ -1,27 +1,5 @@
 # Dockerfile.nginx
-FROM nginx:1.19-alpine
-
-RUN apk add --no-cache git openssl \
-    && apk add --no-cache --virtual .build-deps gcc libc-dev make openssl-dev pcre-dev zlib-dev linux-headers curl gnupg libxslt-dev gd-dev geoip-dev \
-    && mkdir -p /usr/src \
-    && git clone https://github.com/fdintino/nginx-upload-module.git /usr/src/nginx-upload-module \
-    && curl -fSL http://nginx.org/download/nginx-1.19.6.tar.gz -o nginx.tar.gz \
-    && tar -zxC /usr/src -f nginx.tar.gz \
-    && rm nginx.tar.gz \
-    && cd /usr/src/nginx-1.19.6 \
-    && ./configure --with-compat --add-dynamic-module=/usr/src/nginx-upload-module \
-    && make \
-    && make install \
-    && strip /usr/local/nginx/sbin/nginx* \
-    && runDeps="$( \
-        scanelf --needed --nobanner /usr/local/nginx/sbin/nginx \
-                | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
-                | xargs -r apk info --installed \
-                | sort -u \
-    )" \
-    && apk add --virtual .nginx-rundeps $runDeps \
-    && apk del .build-deps \
-    && rm -rf /var/cache/apk/* /usr/src/nginx*
+FROM nginx:latest
 
 RUN mkdir -p /usr/share/nginx/html/images
 RUN mkdir -p /tmp

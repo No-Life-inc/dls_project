@@ -9,6 +9,7 @@ services:
       - "9000:80"
     volumes:
       - nginx-data:/usr/share/nginx/html
+    restart: unless-stopped
 
 
   write_db:
@@ -98,6 +99,22 @@ services:
       - MONGOPW=${MONGOPW}
       - MONGOURL=${MONGOURL}
       - MONGODB=${MONGODB}
+      
+  cdn_changes:  # Replace with the name of your Python service
+    build:
+      context: ./dls_cdnChanges
+    depends_on:
+    - rabbitmq
+    container_name: cdn_changes
+    restart: unless-stopped
+    ports:
+      - "5020:5020"
+    environment:
+      - RABBITUSER=${RABBITUSER}
+      - RABBITPW=${RABBITPW}
+      - RABBITURL=${RABBITURL}
+    volumes:
+      - nginx-data:/usr/src/app/images
 
   emailer:
     build:

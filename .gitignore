@@ -301,6 +301,7 @@ pyrightconfig.json
 dls_backend
 dls_dbChanges
 dls_dbUserChanges
+dls_cdnChanges
 dls_frontend
 dls_frontend_backend
 dls_frontend_write_rest_api

@@ -78,3 +78,7 @@ Lastly, use the following command:
 docker-compose up --build
 ```
 
+#Kubernetes
+docker-compose config > docker-compose-resolved.yaml
+kompose convert -f docker-compose-resolved.yaml
+kubectl delete pods,services,deployments,replicasets --all

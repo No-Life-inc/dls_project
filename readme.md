@@ -15,9 +15,11 @@ The full struckture of the project should look like this:<br>
   - dls_auth_api
   - dls_dbChanges
   - dls_dbUserChanges
+  - dls_cdnChanges
   - dls_frontend
   - dls_graphql
   - dls_write_api
+  - dls_emailer
   - .env
   - docker-compose.yml
 
@@ -65,6 +67,7 @@ GRAPHQLURL=http://localhost:4000/graphql
 WRITEAPIURL=http://localhost:3000/v1
 FRONTENDURL=http://localhost:8080
 AUTHURL=http://localhost:5012/v1
+CDNURL=http://localhost:9000/images/
 
 
 ## How To Run

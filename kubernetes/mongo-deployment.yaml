@@ -26,7 +26,7 @@ spec:
       containers:
         - env:
             - name: MONGO_INITDB_DATABASE
-              value: frontend_backend_db
+              value: read-db
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: Passw0rd!
             - name: MONGO_INITDB_ROOT_USERNAME

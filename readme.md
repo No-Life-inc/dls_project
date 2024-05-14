@@ -39,8 +39,8 @@ RABBITURL='rabbitmq'
 #MSSQL Write Database Frontend
 WRITE_DB_SERVER='localhost,1433'
 WRITE_DB_SERVER_PORT='1433'
-WRITE_DB_INTERNAL_DOCKER_SERVER='write_db,1433'
-WRITE_DB_INTERNAL_DOCKER_SERVER_NO_PORT='write_db'
+WRITE_DB_INTERNAL_DOCKER_SERVER='write-db,1433'
+WRITE_DB_INTERNAL_DOCKER_SERVER_NO_PORT='write-db'
 DB_INTERNAL_DOCKER_SERVER_NAME='mssql'
 DB_USER='SA'
 DB_PASSWORD='YourStrongPassword123'
@@ -48,14 +48,14 @@ DB_FRONTEND='mssqlWrite'
 
 #MSSQL Auth Backend
 AUTH_DB_SERVER='localhost,1434'
-AUTH_DB_INTERNAL_DOCKER_SERVER='auth_db,1433'
+AUTH_DB_INTERNAL_DOCKER_SERVER='auth-db,1433'
 DB_BACKEND='usersDb'
 
 #MongoDB
 MONGOUSER='admin'
 MONGOPW='Passw0rd!'
 MONGOURL='@mongo:27017/admin'
-MONGODB='frontend_backend_db'
+MONGODB='read-db'
 
 #Port specification
 FRONTEND_PORT=8080
@@ -122,4 +122,23 @@ to remove them again you can run
 
 ```bash
 kubectl delete pods,services,deployments,replicasets --all
+```
+
+### How to port forward all services
+
+```bash
+Start-Job { kubectl port-forward svc/auth-backend 5012:5012 }
+Start-Job { kubectl port-forward svc/auth-db 1434:1434 }
+Start-Job { kubectl port-forward svc/cdn-changes 5020:5020 }
+Start-Job { kubectl port-forward svc/db-changes 5000:5000 }
+Start-Job { kubectl port-forward svc/db-user-changes 5001:5001 }
+Start-Job { kubectl port-forward svc/dls-frontend 8080:8080 }
+Start-Job { kubectl port-forward svc/emailer 5050:5050 }
+Start-Job { kubectl port-forward svc/graphql-api 4000:4000 }
+Start-Job { kubectl port-forward svc/mongo 27017:27017 }
+Start-Job { kubectl port-forward svc/nginx 9000:9000 }
+Start-Job { kubectl port-forward svc/rabbitmq 15672:15672 }
+Start-Job { kubectl port-forward svc/rabbitmq 5672:5672 }
+Start-Job { kubectl port-forward svc/write-api 3000:3000 }
+Start-Job { kubectl port-forward svc/write-db 1433:1433 }
 ```

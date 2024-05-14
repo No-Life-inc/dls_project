@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: db-changes-config
 data:
-  MONGODB: 'frontend_backend_db'
+  MONGODB: 'read-db'
   MONGOPW: 'Passw0rd!'
   MONGOURL: '@mongo:27017/admin'
   MONGOUSER: 'admin'

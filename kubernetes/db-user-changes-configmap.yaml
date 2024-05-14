@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: db-user-changes-config
 data:
-  DB_FRONTEND: 'mssqlWrite'
+  DB_FRONTEND: 'write-db'
   DB_PASSWORD: 'YourStrongPassword123'
-  DB_SERVER: 'write_db,1433'
+  DB_SERVER: 'write-db,1433'
   DB_USER: 'SA'
   RABBITPW: 'password'
   RABBITURL: 'rabbitmq'

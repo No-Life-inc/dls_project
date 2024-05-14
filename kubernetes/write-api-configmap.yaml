@@ -3,10 +3,10 @@ kind: ConfigMap
 metadata:
   name: write-api-config
 data:
-  CORS_ORIGIN: 'http://dls-frontend:8080'
+  CORS_ORIGIN: '*'
   DB_FRONTEND: 'mssqlWrite'
   DB_PASSWORD: 'YourStrongPassword123'
-  DB_SERVER: 'write_db'
+  DB_SERVER: 'write-db'
   DB_USER: 'SA'
   PORT: '3000'
   RABBITPW: 'password'

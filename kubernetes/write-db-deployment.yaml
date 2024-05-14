@@ -59,3 +59,4 @@ spec:
                 path: entrypoint.sh
             name: write-db-cm1
           name: write-db-cm1
+

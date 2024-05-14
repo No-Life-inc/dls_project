@@ -22,27 +22,9 @@ spec:
         io.kompose.service: write-api
     spec:
       containers:
-        - env:
-            - name: CORS_ORIGIN
-              value: http://dls-frontend:8080
-            - name: DB_FRONTEND
-              value: mssqlWrite
-            - name: DB_PASSWORD
-              value: YourStrongPassword123
-            - name: DB_SERVER
-              value: write_db
-            - name: DB_USER
-              value: SA
-            - name: PORT
-              value: "3000"
-            - name: RABBITPW
-              value: password
-            - name: RABBITURL
-              value: rabbitmq
-            - name: RABBITUSER
-              value: user
-            - name: WRITE_DB_SERVER_PORT
-              value: "1433"
+        - envFrom:
+            - configMapRef:
+                name: write-api-config
           image: write-api
           imagePullPolicy: Never
           name: write-api

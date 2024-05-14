@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-changes-config
+data:
+  MONGODB: 'frontend_backend_db'
+  MONGOPW: 'Passw0rd!'
+  MONGOURL: '@mongo:27017/admin'
+  MONGOUSER: 'admin'
+  RABBITPW: 'password'
+  RABBITURL: 'rabbitmq'
+  RABBITUSER: 'user'

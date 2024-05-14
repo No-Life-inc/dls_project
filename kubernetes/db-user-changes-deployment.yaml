@@ -22,21 +22,9 @@ spec:
         io.kompose.service: db-user-changes
     spec:
       containers:
-        - env:
-            - name: DB_FRONTEND
-              value: mssqlWrite
-            - name: DB_PASSWORD
-              value: YourStrongPassword123
-            - name: DB_SERVER
-              value: write_db,1433
-            - name: DB_USER
-              value: SA
-            - name: RABBITPW
-              value: password
-            - name: RABBITURL
-              value: rabbitmq
-            - name: RABBITUSER
-              value: user
+        - envFrom:
+            - configMapRef:
+                name: db-user-changes-config
           image: db-user-changes
           imagePullPolicy: Never
           name: db-user-changes

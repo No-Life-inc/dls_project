@@ -22,19 +22,9 @@ spec:
         io.kompose.service: graphql-api
     spec:
       containers:
-        - env:
-            - name: CORS_ORIGIN
-              value: http://dls-frontend:8080
-            - name: JWT_SECRET
-              value: MmIxM2Q1NjNmNjA1YjNiYjZiNWY0M2VjOTVhMmFhZWVmMWQ3ODAwNDlkOTFkNjJlMGQ3YzA0ZDcwZDQ2ZGU0NA==
-            - name: MONGOPW
-              value: Passw0rd!
-            - name: MONGOURL
-              value: '@mongo:27017/admin'
-            - name: MONGOUSER
-              value: admin
-            - name: PORT
-              value: "4000"
+        - envFrom:
+            - configMapRef:
+                name: graphql-api-config
           image: graphql-api
           imagePullPolicy: Never
           name: graphql

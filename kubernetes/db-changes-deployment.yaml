@@ -22,21 +22,9 @@ spec:
         io.kompose.service: db-changes
     spec:
       containers:
-        - env:
-            - name: MONGODB
-              value: frontend_backend_db
-            - name: MONGOPW
-              value: Passw0rd!
-            - name: MONGOURL
-              value: '@mongo:27017/admin'
-            - name: MONGOUSER
-              value: admin
-            - name: RABBITPW
-              value: password
-            - name: RABBITURL
-              value: rabbitmq
-            - name: RABBITUSER
-              value: user
+        - envFrom:
+            - configMapRef:
+                name: db-changes-config
           image: db-changes
           imagePullPolicy: Never
           name: db-changes

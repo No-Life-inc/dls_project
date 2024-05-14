@@ -22,13 +22,9 @@ spec:
         io.kompose.service: emailer
     spec:
       containers:
-        - env:
-            - name: RABBITPW
-              value: password
-            - name: RABBITURL
-              value: rabbitmq
-            - name: RABBITUSER
-              value: user
+        - envFrom:
+            - configMapRef:
+                name: emailer-config
           image: emailer
           imagePullPolicy: Never
           name: emailer

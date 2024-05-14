@@ -39,8 +39,8 @@ RABBITURL='rabbitmq'
 #MSSQL Write Database Frontend
 WRITE_DB_SERVER='localhost,1433'
 WRITE_DB_SERVER_PORT='1433'
-WRITE_DB_INTERNAL_DOCKER_SERVER='write_db,1433'
-WRITE_DB_INTERNAL_DOCKER_SERVER_NO_PORT='write_db'
+WRITE_DB_INTERNAL_DOCKER_SERVER='write-db,1433'
+WRITE_DB_INTERNAL_DOCKER_SERVER_NO_PORT='write-db'
 DB_INTERNAL_DOCKER_SERVER_NAME='mssql'
 DB_USER='SA'
 DB_PASSWORD='YourStrongPassword123'
@@ -48,14 +48,14 @@ DB_FRONTEND='mssqlWrite'
 
 #MSSQL Auth Backend
 AUTH_DB_SERVER='localhost,1434'
-AUTH_DB_INTERNAL_DOCKER_SERVER='auth_db,1433'
+AUTH_DB_INTERNAL_DOCKER_SERVER='auth-db,1433'
 DB_BACKEND='usersDb'
 
 #MongoDB
 MONGOUSER='admin'
 MONGOPW='Passw0rd!'
 MONGOURL='@mongo:27017/admin'
-MONGODB='frontend_backend_db'
+MONGODB='read-db'
 
 #Port specification
 FRONTEND_PORT=8080
@@ -67,7 +67,6 @@ GRAPHQLURL=http://localhost:4000/graphql
 WRITEAPIURL=http://localhost:3000/v1
 FRONTENDURL=http://localhost:8080
 AUTHURL=http://localhost:5012/v1
-CDNURL=http://localhost:9000/images/
 
 
 ## How To Run

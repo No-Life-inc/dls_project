@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose-resolved.yaml -o ./kubernetes
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: emailer
+  name: emailer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: emailer
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose-resolved.yaml -o ./kubernetes
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/dls-project-default: "true"
+        io.kompose.service: emailer
+    spec:
+      containers:
+        - env:
+            - name: RABBITPW
+              value: password
+            - name: RABBITURL
+              value: rabbitmq
+            - name: RABBITUSER
+              value: user
+          image: emailer
+          imagePullPolicy: Never
+          name: emailer
+          ports:
+            - containerPort: 5050
+              hostPort: 5050
+              protocol: TCP
+      restartPolicy: Always

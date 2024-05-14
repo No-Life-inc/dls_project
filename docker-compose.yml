@@ -9,12 +9,12 @@ services:
       - "9000:80"
     volumes:
       - nginx-data:/usr/share/nginx/html
-    restart: unless-stopped
+    restart: always
 
 
-  write_db:
+  write-db:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: write_db
+    container_name: write-db
     ports:
       - "1433:1433"
     environment:
@@ -27,9 +27,9 @@ services:
       - /bin/bash
       - /entrypoint.sh
 
-  auth_db:
+  auth-db:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: auth_db
+    container_name: auth-db
     ports:
       - "1434:1433"
     environment:
@@ -58,14 +58,15 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-    restart: unless-stopped
+    restart: always
 
-  auth_backend:
+  auth-backend:
     build:
       context: ./dls_auth_api/DLS_Backend
     depends_on:
-      - auth_db
-    container_name: backend
+      - auth-db
+    container_name: auth-backend
+    image: auth-backend
     ports:
       - "5012:5012"
     environment:
@@ -81,14 +82,15 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - FRONTENDURL=${FRONTENDURL}
 
-  db_changes:
+  db-changes:
     build:
       context: ./dls_dbChanges
     depends_on:
       - mongo
       - rabbitmq
-    container_name: db_changes
-    restart: unless-stopped
+    container_name: db-changes
+    image: db-changes
+    restart: always
     ports:
       - "5000:5000"
     environment:
@@ -100,13 +102,14 @@ services:
       - MONGOURL=${MONGOURL}
       - MONGODB=${MONGODB}
       
-  cdn_changes:  # Replace with the name of your Python service
+  cdn-changes:  # Replace with the name of your Python service
     build:
       context: ./dls_cdnChanges
     depends_on:
     - rabbitmq
-    container_name: cdn_changes
-    restart: unless-stopped
+    container_name: cdn-changes
+    image: cdn-changes
+    restart: always
     ports:
       - "5020:5020"
     environment:
@@ -121,8 +124,9 @@ services:
       context: ./dls_emailer
     depends_on:
       - rabbitmq
+    image: emailer
     container_name: emailer
-    restart: unless-stopped
+    restart: always
     ports:
       - "5050:5050"
     environment:
@@ -130,16 +134,17 @@ services:
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
 
-  db_user_changes:
+  db-user-changes:
     build:
       context: ./dls_dbUserChanges
     depends_on:
-      - write_db
+      - write-db
       - rabbitmq
+    image: db-user-changes
     container_name: db_user_changes
     ports:
       - "5001:5001"
-    restart: unless-stopped
+    restart: always
     environment:
       - RABBITUSER=${RABBITUSER}
       - RABBITPW=${RABBITPW}
@@ -149,7 +154,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
 
-  dls_frontend:
+  dls-frontend:
     build:
       args:
         - REACT_APP_GRAPHQLURL=${GRAPHQLURL}
@@ -157,6 +162,7 @@ services:
         - REACT_APP_AUTHURL=${AUTHURL}
       context: ./dls_frontend
     container_name: frontend
+    image: frontend
     ports:
       - "8080:8080"
     environment:
@@ -166,10 +172,11 @@ services:
       - REACT_APP_AUTHURL=${AUTHURL}
       - REACT_APP_CDNURL=${CDNURL}
 
-  graphql_api:
+  graphql-api:
     build:
       context: ./dls_graphql
     container_name: graphql
+    image: graphql-api
     ports:
       - "4000:4000"
     environment:
@@ -178,12 +185,14 @@ services:
       - MONGOPW=${MONGOPW}
       - MONGOURL=${MONGOURL}
       - JWT_SECRET=${JWT_SECRET}
+      - CORS_ORIGIN=${FRONTENDURL}
 
-  write_api:
+  write-api:
     build: ./dls_write_api
     ports:
       - "3000:3000"
-    container_name: write_api
+    container_name: write-api
+    image: write-api
     depends_on:
       - rabbitmq
     environment:

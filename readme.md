@@ -81,7 +81,43 @@ Lastly, use the following command:
 docker-compose up --build
 ```
 
-#Kubernetes
+## Setup Kubernetes
+
+```bash
 docker-compose config > docker-compose-resolved.yaml
-kompose convert -f docker-compose-resolved.yaml
+```
+
+```bash
+kompose convert -f docker-compose-resolved.yaml -o ./kubernetes 
+```
+
+
+## Run Kubernetes
+Make sure the the docker images are built.<br>
+
+then run 
+```bash
+kubectl apply -f ./kubernetes
+```
+
+check pods with
+
+```bash
+kubectl get pods
+```
+
+check services with
+```bash
+kubectl get services
+```
+
+to check the frontend, it has to be port forwarded
+```bash
+kubectl port-forward service/dls-frontend 8080:8080
+```
+
+to remove them again you can run
+
+```bash
 kubectl delete pods,services,deployments,replicasets --all
+```

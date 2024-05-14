@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose-resolved.yaml -o ./kubernetes
+    kompose.version: 1.33.0 (3ce457399)
+  labels:
+    io.kompose.service: graphql-api
+  name: graphql-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: graphql-api
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose-resolved.yaml -o ./kubernetes
+        kompose.version: 1.33.0 (3ce457399)
+      labels:
+        io.kompose.network/dls-project-default: "true"
+        io.kompose.service: graphql-api
+    spec:
+      containers:
+        - env:
+            - name: JWT_SECRET
+              value: MmIxM2Q1NjNmNjA1YjNiYjZiNWY0M2VjOTVhMmFhZWVmMWQ3ODAwNDlkOTFkNjJlMGQ3YzA0ZDcwZDQ2ZGU0NA==
+            - name: MONGOPW
+              value: Passw0rd!
+            - name: MONGOURL
+              value: '@mongo:27017/admin'
+            - name: MONGOUSER
+              value: admin
+            - name: PORT
+              value: "4000"
+            - name: CORS_ORIGIN
+              value: http://localhost:8080
+          image: graphql-api
+          imagePullPolicy: IfNotPresent
+          name: graphql
+          ports:
+            - containerPort: 4000
+              hostPort: 4000
+              protocol: TCP
+      restartPolicy: Always

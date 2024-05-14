@@ -83,6 +83,8 @@ docker-compose up --build
 
 ## Setup Kubernetes
 
+**DONT RUN UNLESS RESOLVED YAML IS MISSING**
+
 ```bash
 docker-compose config > docker-compose-resolved.yaml
 ```

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cdn-changes-config
+data:
+  RABBITPW: 'password'
+  RABBITURL: 'rabbitmq'
+  RABBITUSER: 'user'

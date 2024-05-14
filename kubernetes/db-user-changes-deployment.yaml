@@ -38,7 +38,6 @@ spec:
             - name: RABBITUSER
               value: user
           image: db-user-changes
-          imagePullPolicy: Never
           name: db-user-changes
           ports:
             - containerPort: 5001

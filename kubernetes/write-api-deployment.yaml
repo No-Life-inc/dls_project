@@ -24,7 +24,7 @@ spec:
       containers:
         - env:
             - name: CORS_ORIGIN
-              value: http://localhost:8080
+              value: http://dls-frontend:8080
             - name: DB_FRONTEND
               value: mssqlWrite
             - name: DB_PASSWORD
@@ -44,7 +44,6 @@ spec:
             - name: WRITE_DB_SERVER_PORT
               value: "1433"
           image: write-api
-          imagePullPolicy: Never
           name: write-api
           ports:
             - containerPort: 3000

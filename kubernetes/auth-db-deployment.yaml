@@ -22,11 +22,9 @@ spec:
         io.kompose.service: auth-db
     spec:
       containers:
-        - env:
-            - name: ACCEPT_EULA
-              value: "Y"
-            - name: SA_PASSWORD
-              value: YourStrongPassword123
+        - envFrom:
+            - configMapRef:
+                name: auth-db-config
           image: mcr.microsoft.com/mssql/server:2019-latest
           name: auth-db
           ports:

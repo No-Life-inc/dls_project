@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-backend-config
+data:
+  ASPNETCORE_ENVIRONMENT: 'Development'
+  ASPNETCORE_URLS: 'http://+:5012'
+  DB_BACKEND: 'usersDb'
+  DB_PASSWORD: 'YourStrongPassword123'
+  DB_SERVER: 'auth_db,1433'
+  DB_USER: 'SA'
+  FRONTENDURL: 'http://dls-frontend:8080'
+  JWT_SECRET: 'MmIxM2Q1NjNmNjA1YjNiYjZiNWY0M2VjOTVhMmFhZWVmMWQ3ODAwNDlkOTFkNjJlMGQ3YzA0ZDcwZDQ2ZGU0NA=='
+  RABBITPW: 'password'
+  RABBITURL: 'rabbitmq'
+  RABBITUSER: 'user'

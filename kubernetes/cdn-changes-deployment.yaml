@@ -24,15 +24,10 @@ spec:
         io.kompose.service: cdn-changes
     spec:
       containers:
-        - env:
-            - name: RABBITPW
-              value: password
-            - name: RABBITURL
-              value: rabbitmq
-            - name: RABBITUSER
-              value: user
+        - envFrom:
+            - configMapRef:
+                name: cdn-changes-config
           image: cdn-changes
-          imagePullPolicy: IfNotPresent
           name: cdn-changes
           ports:
             - containerPort: 5020

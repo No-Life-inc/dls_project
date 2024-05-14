@@ -23,6 +23,8 @@ spec:
     spec:
       containers:
         - env:
+            - name: CORS_ORIGIN
+              value: http://dls-frontend:8080
             - name: JWT_SECRET
               value: MmIxM2Q1NjNmNjA1YjNiYjZiNWY0M2VjOTVhMmFhZWVmMWQ3ODAwNDlkOTFkNjJlMGQ3YzA0ZDcwZDQ2ZGU0NA==
             - name: MONGOPW
@@ -33,10 +35,7 @@ spec:
               value: admin
             - name: PORT
               value: "4000"
-            - name: CORS_ORIGIN
-              value: http://localhost:8080
           image: graphql-api
-          imagePullPolicy: IfNotPresent
           name: graphql
           ports:
             - containerPort: 4000

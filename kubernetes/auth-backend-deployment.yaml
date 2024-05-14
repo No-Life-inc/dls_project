@@ -22,31 +22,10 @@ spec:
         io.kompose.service: auth-backend
     spec:
       containers:
-        - env:
-            - name: ASPNETCORE_ENVIRONMENT
-              value: Development
-            - name: ASPNETCORE_URLS
-              value: http://+:5012
-            - name: DB_BACKEND
-              value: usersDb
-            - name: DB_PASSWORD
-              value: YourStrongPassword123
-            - name: DB_SERVER
-              value: auth_db,1433
-            - name: DB_USER
-              value: SA
-            - name: FRONTENDURL
-              value: http://localhost:8080
-            - name: JWT_SECRET
-              value: MmIxM2Q1NjNmNjA1YjNiYjZiNWY0M2VjOTVhMmFhZWVmMWQ3ODAwNDlkOTFkNjJlMGQ3YzA0ZDcwZDQ2ZGU0NA==
-            - name: RABBITPW
-              value: password
-            - name: RABBITURL
-              value: rabbitmq
-            - name: RABBITUSER
-              value: user
+        - envFrom:
+            - configMapRef:
+                name: auth-backend-config
           image: auth-backend
-          imagePullPolicy: Never
           name: backend
           ports:
             - containerPort: 5012

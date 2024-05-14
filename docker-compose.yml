@@ -50,7 +50,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
-    hostname: my-rabbit
+    hostname: rabbitmq
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITUSER}
@@ -102,7 +102,7 @@ services:
       - MONGOURL=${MONGOURL}
       - MONGODB=${MONGODB}
       
-  cdn-changes:  # Replace with the name of your Python service
+  cdn-changes: 
     build:
       context: ./dls_cdnChanges
     depends_on:
@@ -150,7 +150,7 @@ services:
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
       - DB_SERVER=${WRITE_DB_INTERNAL_DOCKER_SERVER}
-      - DB_FRONTEND=${DB_FRONTEND}
+      - WRITE_DB=${WRITE_DB}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
 
@@ -184,8 +184,9 @@ services:
       - MONGOUSER=${MONGOUSER}
       - MONGOPW=${MONGOPW}
       - MONGOURL=${MONGOURL}
+      - MONGODB=${MONGODB}
       - JWT_SECRET=${JWT_SECRET}
-      - CORS_ORIGIN=${FRONTENDURL}
+      - CORS_ORIGIN=${CORS_ORIGIN}
 
   write-api:
     build: ./dls_write_api
@@ -200,12 +201,12 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_SERVER=${WRITE_DB_INTERNAL_DOCKER_SERVER_NO_PORT}
-      - DB_FRONTEND=${DB_FRONTEND}
+      - WRITE_DB=${WRITE_DB}
       - RABBITUSER=${RABBITUSER}
       - RABBITPW=${RABBITPW}
       - RABBITURL=${RABBITURL}
       - WRITE_DB_SERVER_PORT=${WRITE_DB_SERVER_PORT}
-      - CORS_ORIGIN=${FRONTENDURL}
+      - CORS_ORIGIN=${CORS_ORIGIN}
 
 volumes:
   nginx-data:

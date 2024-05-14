@@ -44,7 +44,7 @@ WRITE_DB_INTERNAL_DOCKER_SERVER_NO_PORT='write-db'
 DB_INTERNAL_DOCKER_SERVER_NAME='mssql'
 DB_USER='SA'
 DB_PASSWORD='YourStrongPassword123'
-DB_FRONTEND='mssqlWrite'
+WRITE_DB='writedb'
 
 #MSSQL Auth Backend
 AUTH_DB_SERVER='localhost,1434'
@@ -68,6 +68,9 @@ WRITEAPIURL=http://localhost:3000/v1
 FRONTENDURL=http://localhost:8080
 AUTHURL=http://localhost:5012/v1
 CDNURL=http://localhost:9000/images/
+
+#CORS
+CORS_ORIGIN=*
 
 
 ## How To Run

@@ -36,6 +36,7 @@ spec:
             - name: PORT
               value: "4000"
           image: graphql-api
+          imagePullPolicy: Never
           name: graphql
           ports:
             - containerPort: 4000

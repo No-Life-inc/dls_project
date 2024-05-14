@@ -26,6 +26,7 @@ spec:
             - configMapRef:
                 name: auth-backend-config
           image: auth-backend
+          imagePullPolicy: Never
           name: backend
           ports:
             - containerPort: 5012

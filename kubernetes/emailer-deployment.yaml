@@ -30,6 +30,7 @@ spec:
             - name: RABBITUSER
               value: user
           image: emailer
+          imagePullPolicy: Never
           name: emailer
           ports:
             - containerPort: 5050

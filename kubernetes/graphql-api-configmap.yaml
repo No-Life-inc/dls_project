@@ -8,4 +8,5 @@ data:
   MONGOPW: 'Passw0rd!'
   MONGOURL: '@mongo:27017/admin'
   MONGOUSER: 'admin'
+  MONGODB: read-db
   PORT: '4000'

@@ -23,6 +23,13 @@ spec:
         io.kompose.network/dls-project-default: "true"
         io.kompose.service: cdn-changes
     spec:
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "mkdir -p /usr/share/nginx/html/images"]
+        volumeMounts:
+        - name: nginx-data
+          mountPath: /usr/share/nginx/html
       containers:
         - envFrom:
             - configMapRef:

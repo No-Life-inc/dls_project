@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: db-user-changes-config
 data:
-  DB_FRONTEND: 'write-db'
+  WRITE_DB: 'writedb'
   DB_PASSWORD: 'YourStrongPassword123'
   DB_SERVER: 'write-db,1433'
   DB_USER: 'SA'

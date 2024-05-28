@@ -80,7 +80,7 @@ services:
       - DB_BACKEND=${DB_BACKEND}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
-      - FRONTENDURL=${FRONTENDURL}
+      - FRONTENDURL=${CORS_ORIGIN}
 
   db-changes:
     build:
@@ -101,12 +101,12 @@ services:
       - MONGOPW=${MONGOPW}
       - MONGOURL=${MONGOURL}
       - MONGODB=${MONGODB}
-      
-  cdn-changes: 
+
+  cdn-changes:
     build:
       context: ./dls_cdnChanges
     depends_on:
-    - rabbitmq
+      - rabbitmq
     container_name: cdn-changes
     image: cdn-changes
     restart: always
@@ -153,6 +153,10 @@ services:
       - WRITE_DB=${WRITE_DB}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - MONGOUSER=${MONGOUSER}
+      - MONGOPW=${MONGOPW}
+      - MONGOURL=${MONGOURL}
+      - MONGODB=${MONGODB}
 
   dls-frontend:
     build:

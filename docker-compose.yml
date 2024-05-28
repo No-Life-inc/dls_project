@@ -160,6 +160,7 @@ services:
         - REACT_APP_GRAPHQLURL=${GRAPHQLURL}
         - REACT_APP_WRITEAPIURL=${WRITEAPIURL}
         - REACT_APP_AUTHURL=${AUTHURL}
+        - REACT_APP_CDNURL=${CDNURL}
       context: ./dls_frontend
     container_name: frontend
     image: frontend
@@ -207,6 +208,7 @@ services:
       - RABBITURL=${RABBITURL}
       - WRITE_DB_SERVER_PORT=${WRITE_DB_SERVER_PORT}
       - CORS_ORIGIN=${CORS_ORIGIN}
+      - JWT_SECRET=${JWT_SECRET}
 
 volumes:
   nginx-data:
